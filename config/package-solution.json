@@ -1,0 +1,40 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/spfx-build/package-solution.schema.json",
+  "solution": {
+    "name": "jira-api-client-side-solution",
+    "id": "4ff2fd80-3ec3-4c80-b6a4-2f1f5bc2e52d",
+    "version": "1.0.0.0",
+    "includeClientSideAssets": true,
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false,
+    "developer": {
+      "name": "",
+      "websiteUrl": "",
+      "privacyUrl": "",
+      "termsOfUseUrl": "",
+      "mpnId": "Undefined-1.19.0"
+    },
+    "metadata": {
+      "shortDescription": {
+        "default": "JiraAPI description"
+      },
+      "longDescription": {
+        "default": "JiraAPI description"
+      },
+      "screenshotPaths": [],
+      "videoUrl": "",
+      "categories": []
+    },
+    "features": [
+      {
+        "title": "jira-api Feature",
+        "description": "The feature that activates elements of the jira-api solution.",
+        "id": "5421de77-fc05-459a-a5df-db89c915a40c",
+        "version": "1.0.0.0"
+      }
+    ]
+  },
+  "paths": {
+    "zippedPackage": "solution/jira-api.sppkg"
+  }
+}

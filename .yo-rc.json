@@ -1,0 +1,24 @@
+{
+  "@microsoft/generator-sharepoint": {
+    "whichFolder": "subdir",
+    "solutionName": "JiraAPI",
+    "componentType": "webpart",
+    "template": "react",
+    "componentName": "ApiButton",
+    "plusBeta": false,
+    "isCreatingSolution": true,
+    "nodeVersion": "18.20.2",
+    "sdksVersions": {
+      "@microsoft/microsoft-graph-client": "3.0.2",
+      "@microsoft/teams-js": "2.12.0"
+    },
+    "version": "1.19.0",
+    "libraryName": "jira-api",
+    "libraryId": "4ff2fd80-3ec3-4c80-b6a4-2f1f5bc2e52d",
+    "environment": "spo",
+    "packageManager": "npm",
+    "solutionShortDescription": "JiraAPI description",
+    "skipFeatureDeployment": true,
+    "isDomainIsolated": false
+  }
+}
