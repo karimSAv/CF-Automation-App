@@ -21,12 +21,6 @@ export const InputSection = ({ children }: { children: React.ReactNode }) => {
     )
 };
 
-const Separator = ({ style }: { style?: React.CSSProperties }) => {
-    return (
-        <div style={{ width: "100%", height: "2px", backgroundColor: "#007ab3", marginBottom: "1rem", ...style }} />
-    )
-};
-
 const CreateForm = () => {
     return (
         <div style={{ display: "flex", flexDirection: "column", gap: "1rem" }}>

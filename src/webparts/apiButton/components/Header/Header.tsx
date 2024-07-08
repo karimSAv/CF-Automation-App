@@ -41,10 +41,8 @@ const Header = () => {
 
     const handleSubmit = async () => {
         await createJiraTicket(httpClient, {
-            'emailadress': "karim.el.samarji@avanade.com",
-            'emailSubject': "hello",
-            'emailBody': "first http req from spfx",
-            'ticketTitle': "finallllllyyyy"
+            'ticketTitle': "finallllllyyyy",
+            'description': "this is the description"
         });
     };
 

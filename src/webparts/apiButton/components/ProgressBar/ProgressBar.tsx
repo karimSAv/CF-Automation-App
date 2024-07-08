@@ -4,7 +4,7 @@ import { Step, StepLabel, Stepper } from "@mui/material";
 
 const ProgressBar = () => {
 
-    const { isShowPreview } = React.useContext(CFContext);
+    const { isShowPreview, isShowFinalScreen } = React.useContext(CFContext);
 
     const steps = React.useMemo(() =>
         [{
@@ -15,12 +15,12 @@ const ProgressBar = () => {
         {
             label: "Vérifie tous les champs",
             isCurrent: isShowPreview,
-            isDone: false
+            isDone: isShowFinalScreen
         },
         {
             label: "Demande envoyée !",
-            isCurrent: false,
-            isDone: false
+            isCurrent: isShowFinalScreen,
+            isDone: isShowFinalScreen
         }]
     , [isShowPreview])
 

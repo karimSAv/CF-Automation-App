@@ -1,13 +1,15 @@
 import * as React from 'react';
-import toast from 'react-hot-toast';
 import PreviewTab from './components/PreviewTab';
 import CreateForm from './components/CreateForm';
 import ModifyForm from './components/ModifyForm';
 import { CFContext } from '../../context/CFContext';
+import FinalScreen from './components/FinalScreen';
 
 const Form = () => {
 
-    const { isShowPreview, setIsShowPreview, currentTab, setIsSubmitted, handleSubmitForm } = React.useContext(CFContext);
+    const { isShowFinalScreen, isShowPreview, currentTab, handleSubmitForm } = React.useContext(CFContext);
+
+    if(isShowFinalScreen) return (<FinalScreen />)
 
     if (isShowPreview) return <PreviewTab />;
 
@@ -19,7 +21,6 @@ const Form = () => {
                     onClick={() => {
                         handleSubmitForm();
                         window.scrollTo(0, 0);
-                        // setIsShowPreview(true);
                     }}
                     style={{
                         padding: "0.8rem 1.2rem",

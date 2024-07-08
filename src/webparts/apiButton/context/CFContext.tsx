@@ -4,6 +4,8 @@ import toast from 'react-hot-toast';
 
 type CFContextProps = {
     httpClient: HttpClient | undefined;
+    isShowFinalScreen: boolean;
+    setIsShowFinalScreen: React.Dispatch<React.SetStateAction<boolean>>;
     isSubmitted: boolean;
     setIsSubmitted: React.Dispatch<React.SetStateAction<boolean>>;
     isShowPreview: boolean;
@@ -45,6 +47,8 @@ const noOp = () => console.log("No-op function");
 // Provide default values for the context
 const CFContext = React.createContext<CFContextProps>({
     httpClient: undefined,
+    isShowFinalScreen: false,
+    setIsShowFinalScreen: noOp,
     isSubmitted: false,
     setIsSubmitted: noOp,
     isShowPreview: false,
@@ -83,24 +87,23 @@ const CFContext = React.createContext<CFContextProps>({
 
 const CFContextProvider = ({ children, httpClient}: { children: React.ReactNode, httpClient: HttpClient }) => {
 
-    const [isSubmitted, setIsSubmitted] = React.useState(false);
-
-    const [isShowPreview, setIsShowPreview] = React.useState(false);
-    const [currentTab, setCurrentTab] = React.useState(0);
-    
-    const [codeFirm, setCodeFirm] = React.useState('');
-    const [dateDebut, setDateDebut] = React.useState('');
     const [dateFin, setDateFin] = React.useState('');
     const [libelle, setLibelle] = React.useState('');
-    const [reduction, setReduction] = React.useState(0);
     const [prodIMS, setProdIMS] = React.useState([]);
     const [prodABS, setProdABS] = React.useState([]);
+    const [comment, setComment] = React.useState('');
+    const [codeFirm, setCodeFirm] = React.useState('');
+    const [reduction, setReduction] = React.useState(0);
+    const [dateDebut, setDateDebut] = React.useState('');
+    const [garanties, setGaranties] = React.useState([]);
+    const [currentTab, setCurrentTab] = React.useState(0);    
+    const [isSubmitted, setIsSubmitted] = React.useState(false);
+    const [destinataires, setDestinataires] = React.useState([]);
+    const [isGrignotage, setIsGrignotage] = React.useState(false);
+    const [isShowPreview, setIsShowPreview] = React.useState(false);
+    const [isShowFinalScreen, setIsShowFinalScreen] = React.useState(false);
     const [codesIntermediaires, setCodesIntermediaires] = React.useState('');
     const [file, setFile] = React.useState<string | number | readonly string[] | undefined>(undefined);
-    const [garanties, setGaranties] = React.useState([]);
-    const [isGrignotage, setIsGrignotage] = React.useState(false);
-    const [comment, setComment] = React.useState('');
-    const [destinataires, setDestinataires] = React.useState([]);
 
 
     const chechFields = () => {
@@ -116,6 +119,7 @@ const CFContextProvider = ({ children, httpClient}: { children: React.ReactNode,
     const handleSubmitForm = () => {
         const allGood = chechFields();
         if (!allGood) return;
+        
         toast.success('Form submitted successfully');
 
         setIsShowPreview(true);
@@ -124,6 +128,8 @@ const CFContextProvider = ({ children, httpClient}: { children: React.ReactNode,
     return (
         <CFContext.Provider value={{
             httpClient,
+            isShowFinalScreen,
+            setIsShowFinalScreen,
             isSubmitted,
             setIsSubmitted,
             isShowPreview,

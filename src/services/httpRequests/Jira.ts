@@ -1,10 +1,8 @@
 import { HttpClient, HttpClientResponse, IHttpClientOptions } from '@microsoft/sp-http';
 
 type CreateJiraTicketRequest = {
-    emailadress: string;
-    emailSubject: string;
-    emailBody: string;
     ticketTitle: string;
+    description: string;
 }
 
 
