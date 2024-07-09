@@ -4,7 +4,7 @@ import CreateForm from './components/CreateForm';
 import ModifyForm from './components/ModifyForm';
 import { CFContext } from '../../context/CFContext';
 import FinalScreen from './components/FinalScreen';
-import BackView from './components/BackView';
+import BackView from '../BackApp/BackView';
 import ProgressBar from '../ProgressBar';
 
 const Form = () => {

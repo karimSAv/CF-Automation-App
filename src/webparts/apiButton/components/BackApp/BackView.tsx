@@ -2,10 +2,13 @@ import "@pnp/sp/webs";
 import "@pnp/sp/lists";
 import "@pnp/sp/items";
 import * as React from "react";
-import { getSP } from "../../../utils/pnpjsConfig";
+import { getSP } from "../../utils/pnpjsConfig";
+import RequestDetails from "./components/RequestDetails";
 
 const BackView = () => {
     const [listItems, setListItems] = React.useState([] as any[]);
+
+    const [selectedItem, setSelectedItem] = React.useState(null);
 
     React.useEffect(() => {
         const getItems = async () => {
@@ -21,13 +24,16 @@ const BackView = () => {
         getItems().catch(error => console.error("Failed to execute getItems:", error));
     }, []);
 
+    if(selectedItem) return (
+        <RequestDetails selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
+    )
+
     return (
         <div style={{
-            display: "flex",
-            flexDirection: "column",
             gap: "1rem",
+            display: "flex",
             fontSize: "1.2rem",
-
+            flexDirection: "column",
         }}>
             <h1>All Requests :</h1>
             {listItems.splice(0, listItems.length - 1).map((item, index) => (
@@ -60,6 +66,7 @@ const BackView = () => {
                     <span>{item.isTested}</span>
                     <span>{item.committed ? "yes" : "no"}</span>
                     <button
+                        onClick={() => setSelectedItem(item)}
                         style={{
                             backgroundColor: "#007ab3",
                             color: "white",
@@ -69,7 +76,7 @@ const BackView = () => {
                             borderRadius: "15px",
                         }}
                     >
-                        {"view query"}
+                        {"view more"}
                     </button>
                 </div>
             ))}
