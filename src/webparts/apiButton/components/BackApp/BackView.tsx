@@ -22,7 +22,7 @@ const BackView = () => {
         };
 
         getItems().catch(error => console.error("Failed to execute getItems:", error));
-    }, []);
+    }, [selectedItem]);
 
     if(selectedItem) return (
         <RequestDetails selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
