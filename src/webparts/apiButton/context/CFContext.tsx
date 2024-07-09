@@ -133,9 +133,8 @@ const CFContextProvider = ({ children, httpClient }: { children: React.ReactNode
         return formattedGarantiesArray.join(' / ');
     };
 
-
     const getQuery = (): string => {
-        let query = `
+        const query = `
             --Imp<br>
                 INSERT INTO BABS.TFR1_FIRMCOD_IMP (FR1_FC_IMP#,FR1_CD_FIRMCOD,FR1_NOM_FIRMCOD,GILTAB,GILTBIS,FR1_CD_TYP_ASSUR,FR1_TX_MAX_RED,FR1_CD_CTXT_AFF_FC,FR1_TX_PLAN_RED)
                 VALUES ('761f82f8-fbc6-11ee-a7ea-005056a76fae', ${codeFirm}, ${libelle}, ${dateDebut},${dateFin},'N',0.000,'  ',0.000);

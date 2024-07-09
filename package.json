@@ -13,6 +13,7 @@
     "serve": "fast-serve"
   },
   "dependencies": {
+    "@azure/msal-browser": "^3.18.0",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@fluentui/react": "^8.106.4",
@@ -24,6 +25,9 @@
     "@microsoft/sp-property-pane": "1.18.2",
     "@microsoft/sp-webpart-base": "1.18.2",
     "@mui/material": "^5.15.20",
+    "@pnp/graph": "^4.2.0",
+    "@pnp/msaljsclient": "^4.2.0",
+    "@pnp/sp": "^4.2.0",
     "jira-client": "^8.2.2",
     "lucide-react": "^0.396.0",
     "react": "17.0.1",
