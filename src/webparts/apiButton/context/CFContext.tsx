@@ -53,7 +53,7 @@ const CFContext = React.createContext<CFContextProps>({
     setIsSubmitted: noOp,
     isShowPreview: false,
     setIsShowPreview: noOp,
-    currentTab: 0,
+    currentTab: 2,
     setCurrentTab: noOp,
     codeFirm: '',
     setCodeFirm: noOp,
@@ -96,7 +96,7 @@ const CFContextProvider = ({ children, httpClient }: { children: React.ReactNode
     const [reduction, setReduction] = React.useState(0);
     const [dateDebut, setDateDebut] = React.useState('');
     const [garanties, setGaranties] = React.useState([]);
-    const [currentTab, setCurrentTab] = React.useState(0);
+    const [currentTab, setCurrentTab] = React.useState(2);
     const [isSubmitted, setIsSubmitted] = React.useState(false);
     const [destinataires, setDestinataires] = React.useState([]);
     const [isGrignotage, setIsGrignotage] = React.useState(false);
