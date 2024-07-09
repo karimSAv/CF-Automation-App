@@ -37,6 +37,18 @@ const VerticalNavBar = () => {
                 }}>
                 Modification
             </button>
+            <button
+                onClick={() => setCurrentTab(2)}
+                style={{
+                    display: "flex",
+                    padding: "1rem 6rem",
+                    width: "100%",
+                    border: "none",
+                    backgroundColor: currentTab === 2 ? "#007ab3" : "#ffffff",
+                    color: currentTab === 2 ? "white" : "#697f90",
+                }}>
+                Back view
+            </button>
 
         </div>
     )

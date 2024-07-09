@@ -1,7 +1,6 @@
 import Form from './Form';
 import NavBar from './NavBar';
 import * as React from 'react';
-import ProgressBar from './ProgressBar';
 import { Toaster } from 'react-hot-toast';
 import styles from './ApiButton.module.scss';
 import VerticalNavBar from './NavBar/VerticalNavBar';
@@ -22,7 +21,6 @@ const ApiButton = ({ context }: { context: WebPartContext }) => {
         }}>
           <VerticalNavBar />
           <div style={{ width: "100%" }}>
-            <ProgressBar />
             <Form />
           </div>
         </div>

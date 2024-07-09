@@ -133,6 +133,7 @@ const CFContextProvider = ({ children, httpClient }: { children: React.ReactNode
         return formattedGarantiesArray.join(' / ');
     };
 
+
     const getQuery = (): string => {
         let query = `
             --Imp<br>
