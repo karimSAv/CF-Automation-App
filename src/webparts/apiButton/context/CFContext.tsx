@@ -85,7 +85,7 @@ const CFContext = React.createContext<CFContextProps>({
 
 });
 
-const CFContextProvider = ({ children, httpClient}: { children: React.ReactNode, httpClient: HttpClient }) => {
+const CFContextProvider = ({ children, httpClient }: { children: React.ReactNode, httpClient: HttpClient }) => {
 
     const [dateFin, setDateFin] = React.useState('');
     const [libelle, setLibelle] = React.useState('');
@@ -96,7 +96,7 @@ const CFContextProvider = ({ children, httpClient}: { children: React.ReactNode,
     const [reduction, setReduction] = React.useState(0);
     const [dateDebut, setDateDebut] = React.useState('');
     const [garanties, setGaranties] = React.useState([]);
-    const [currentTab, setCurrentTab] = React.useState(0);    
+    const [currentTab, setCurrentTab] = React.useState(0);
     const [isSubmitted, setIsSubmitted] = React.useState(false);
     const [destinataires, setDestinataires] = React.useState([]);
     const [isGrignotage, setIsGrignotage] = React.useState(false);
@@ -119,11 +119,65 @@ const CFContextProvider = ({ children, httpClient}: { children: React.ReactNode,
     const handleSubmitForm = () => {
         const allGood = chechFields();
         if (!allGood) return;
-        
+
         toast.success('Form submitted successfully');
 
         setIsShowPreview(true);
-    }
+    };
+
+    const getFormattedGaranties = () => {
+        let formattedGarantiesArray = garanties.map((garantie: string) =>
+            garantie.split(' - ')[0]
+        );
+
+        return formattedGarantiesArray.join(' / ');
+    };
+
+    const getQuery = (): string => {
+        let query = `
+            --Imp<br>
+                INSERT INTO BABS.TFR1_FIRMCOD_IMP (FR1_FC_IMP#,FR1_CD_FIRMCOD,FR1_NOM_FIRMCOD,GILTAB,GILTBIS,FR1_CD_TYP_ASSUR,FR1_TX_MAX_RED,FR1_CD_CTXT_AFF_FC,FR1_TX_PLAN_RED)
+                VALUES ('761f82f8-fbc6-11ee-a7ea-005056a76fae', ${codeFirm}, ${libelle}, ${dateDebut},${dateFin},'N',0.000,'  ',0.000);
+                <br>
+                <br>
+
+            --PROD<br>
+                
+                INSERT INTO BABS.TFR1_FIRMCOD_PROD (FR1_FC_IMP#,HSPP#)
+                VALUES ('761f82f8-fbc6-11ee-a7ea-005056a76fae','e63c52c5-1519-11ea-9115-c85b76b3e3a6');
+
+                <br>
+
+                INSERT INTO BABS.TFR1_FIRMCOD_PROD (FR1_FC_IMP#,HSPP#) 
+                VALUES ('761f82f8-fbc6-11ee-a7ea-005056a76fae','21f38281-1237-11eb-83d2-a86daa4cc1c4');
+
+                <br>
+                <br>
+
+            --CRIT<br>
+
+                INSERT INTO BABS.TFR1_FIRMCOD_CRIT (FR1_FC_CRIT#,FR1_FC_IMP#,FR1_NOM_TAB_COL,FR1_NOM_DON_COMP,FR1_NOM_DOM_COL,FR1_NOM_DOM_VAL,FR1_CD_TYP_OP,FR1_LST_VAL_CRI_FC,FR1_NU_CLUSTER,FR1_NON_PERT_AVT) 
+                VALUES ('5ad2764e-fbf9-11ee-91a9-005056a76fae','761f82f8-fbc6-11ee-a7ea-005056a76fae','FirmCodDiscountMax','','','','         ', ${reduction} ,1,' ');
+                
+                <br>
+
+                INSERT INTO BABS.TFR1_FIRMCOD_CRIT (FR1_FC_CRIT#,FR1_FC_IMP#,FR1_NOM_TAB_COL,FR1_NOM_DON_COMP,FR1_NOM_DOM_COL,FR1_NOM_DOM_VAL,FR1_CD_TYP_OP,FR1_LST_VAL_CRI_FC,FR1_NU_CLUSTER,FR1_NON_PERT_AVT) 
+                VALUES ('5ad282b0-fbf9-11ee-91a9-005056a76fae','761f82f8-fbc6-11ee-a7ea-005056a76fae','TVERTRAG.AUSFGRUND1','','','','In        ', ${getFormattedGaranties()} ,1,' ');
+                
+                <br>
+
+                INSERT INTO BABS.TFR1_FIRMCOD_CRIT (FR1_FC_CRIT#,FR1_FC_IMP#,FR1_NOM_TAB_COL,FR1_NOM_DON_COMP,FR1_NOM_DOM_COL,FR1_NOM_DOM_VAL,FR1_CD_TYP_OP,FR1_LST_VAL_CRI_FC,FR1_NU_CLUSTER,FR1_NON_PERT_AVT) 
+                VALUES ('5ad2840e-fbf9-11ee-91a9-005056a76fae','761f82f8-fbc6-11ee-a7ea-005056a76fae','TSACHE.TYP','','','','In        ','KFZ0041',1,' ');
+
+                <br>
+
+                INSERT INTO BABS.TFR1_FIRMCOD_CRIT (FR1_FC_CRIT#,FR1_FC_IMP#,FR1_NOM_TAB_COL,FR1_NOM_DON_COMP,FR1_NOM_DOM_COL,FR1_NOM_DOM_VAL,FR1_CD_TYP_OP,FR1_LST_VAL_CRI_FC,FR1_NU_CLUSTER,FR1_NON_PERT_AVT) 
+                VALUES ('5ad28558-fbf9-11ee-91a9-005056a76fae','761f82f8-fbc6-11ee-a7ea-005056a76fae','TVERTRAG.WERBERNR','','','','In        ', ${codesIntermediaires},1,' ');
+                "
+            `;
+
+        return query;
+    };
 
     return (
         <CFContext.Provider value={{

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { FileInput, InputLabel } from '../FormInputs';
+import { InputLabel } from '../FormInputs';
 import SectionContainer from './SectionContainer';
 import CIFormatingPopup from '../../../Popups/CIFormatingPopup';
 import { CFContext } from '../../../../context/CFContext';
@@ -8,8 +8,9 @@ import { CFContext } from '../../../../context/CFContext';
 
 const CodeIntermSection = () => {
 
+    const inputRef = React.useRef<HTMLInputElement>(null);
+
     const [isCIFormatingPopupOpen, setIsCIFormatingPopupOpen] = React.useState(false);
-    const [inputCI, setInputCI] = React.useState("");
     const { codesIntermediaires, setCodesIntermediaires } = React.useContext(CFContext);
 
     const splittedCodes = React.useMemo(() =>
@@ -23,9 +24,8 @@ const CodeIntermSection = () => {
                 <p>Les codes intermédiaires doivent être séparés par un "/", oubien formatter les en appuyant sur le bouton ci-dessous.</p>
                 <div style={{ display: "flex", gap: "0.5rem", margin: "0.5rem 0" }}>
                     <input
-                        value={inputCI}
+                        ref = {inputRef}
                         type="text"
-                        onChange={(e) => { setInputCI(e.target.value) }}
                         style={{
                             border: "none",
                             display: "flex",
@@ -35,7 +35,7 @@ const CodeIntermSection = () => {
                         }} />
                     <button
                         onClick={() => {
-                            setCodesIntermediaires(inputCI);
+                            setCodesIntermediaires(inputRef.current?.value || "");
                         }}
                         style={{
                             border: "none",
@@ -45,13 +45,15 @@ const CodeIntermSection = () => {
                             borderRadius: "5px",
                             cursor: "pointer",
                         }}
-                        disabled={inputCI === ""}
+                        disabled={inputRef.current?.value === ""}
                     >
                         Ajouter
                     </button>
                     <button
                         onClick={() => {
-                            setInputCI("");
+                            if (inputRef.current)
+                                inputRef.current.value = "";
+
                             setCodesIntermediaires("");
                         }}
                         style={{
