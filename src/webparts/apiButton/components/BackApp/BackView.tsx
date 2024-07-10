@@ -4,6 +4,7 @@ import "@pnp/sp/items";
 import * as React from "react";
 import { getSP } from "../../utils/pnpjsConfig";
 import RequestDetails from "./components/RequestDetails";
+import { STATUS_COLORS } from "../../utils/constants";
 
 const BackView = () => {
     const [listItems, setListItems] = React.useState([] as any[]);
@@ -24,7 +25,7 @@ const BackView = () => {
         getItems().catch(error => console.error("Failed to execute getItems:", error));
     }, [selectedItem]);
 
-    if(selectedItem) return (
+    if (selectedItem) return (
         <RequestDetails selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
     )
 
@@ -35,7 +36,14 @@ const BackView = () => {
             fontSize: "1.2rem",
             flexDirection: "column",
         }}>
-            <h1>All Requests :</h1>
+            <div style={{ display: "flex", justifyContent: "space-between", padding: "0 4rem 0 1rem", fontWeight: "bold" }}>
+                <span>numéro</span>
+                <span>code</span>
+                <span>date de demande</span>
+                <span>status</span>
+                <span>commité</span>
+                <span>actions</span>
+            </div>
             {listItems.splice(0, listItems.length - 1).map((item, index) => (
                 <div
                     key={item.Id}
@@ -63,8 +71,10 @@ const BackView = () => {
                     </div>
                     <span>{item.Title}</span>
                     <span>{item.creation_date}</span>
-                    <span>{item.isTested}</span>
-                    <span>{item.committed ? "yes" : "no"}</span>
+                    <div style={{ display: "flex", alignItems: "center", padding: "0.4rem 0.8rem", backgroundColor: STATUS_COLORS[item.isTested], borderRadius: "4rem" }}>
+                        <span style={{ fontWeight: "600" }}>{item.isTested}</span>
+                    </div>
+                    <span>{item.committed ? "oui" : "non"}</span>
                     <button
                         onClick={() => setSelectedItem(item)}
                         style={{
@@ -76,7 +86,7 @@ const BackView = () => {
                             borderRadius: "15px",
                         }}
                     >
-                        {"view more"}
+                        {"voir plus"}
                     </button>
                 </div>
             ))}

@@ -1,4 +1,6 @@
 import * as React from "react";
+import { getSP } from "../../../utils/pnpjsConfig";
+import { REQUEST_STATUS, STATUS_COLORS } from "../../../utils/constants";
 
 const RequestDetails = ({ selectedItem, setSelectedItem }:
     {
@@ -6,6 +8,33 @@ const RequestDetails = ({ selectedItem, setSelectedItem }:
         setSelectedItem: React.Dispatch<React.SetStateAction<any>>;
     }
 ) => {
+
+    const validateRequest = async () => {
+        try {
+            console.log("Validating request:", selectedItem);
+            await getSP().web.lists.getByTitle("CodesFirmes").items.getById(selectedItem.Id).update({
+                isTested: REQUEST_STATUS.VALIDATED,
+            });
+            window.location.reload();
+        } catch (error) {
+            console.error("Failed to validate request:", error);
+        }
+    };
+
+    const commitRequest = async () => {
+        try {
+            console.log("Committing request:", selectedItem);
+            await getSP().web.lists.getByTitle("CodesFirmes").items.getById(selectedItem.Id).update({
+                isTested: REQUEST_STATUS.COMMITTED,
+            });
+            window.location.reload();
+        } catch (error) {
+            console.error("Failed to commit request:", error);
+        }
+    };
+
+
+
     return (
         <div>
             <button
@@ -24,6 +53,13 @@ const RequestDetails = ({ selectedItem, setSelectedItem }:
                     <span>{selectedItem.Title}</span>
                 </div>
 
+                <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+                    <span>Status:</span>
+                    <div style={{ display: "flex", alignItems: "center", padding: "0.4rem 0.8rem", backgroundColor: STATUS_COLORS[selectedItem.isTested], borderRadius: "4rem" }}>
+                        <span style={{ fontWeight: "600" }}>{selectedItem.isTested}</span>
+                    </div>
+                </div>
+
                 <div style={{ display: "flex", gap: "2rem" }}>
                     <p>Query:</p>
                     <textarea
@@ -33,16 +69,40 @@ const RequestDetails = ({ selectedItem, setSelectedItem }:
                     />
                 </div>
             </div>
-            <button
-                style={{
-                    border: "none",
-                    color: "white",
-                    cursor: "pointer",
-                    width: "fit-content",
-                    padding: "0.8rem 1.2rem",
-                    backgroundColor: "#007ab3",
-                }}
-            >{"commit"}</button>
+            <div style={{ display: "flex", paddingTop: "2rem", gap: "1rem" }}>
+                {selectedItem.isTested === REQUEST_STATUS.JUST_RECEIVED &&
+                    <button
+                        onClick={validateRequest}
+                        style={{
+                            border: "none",
+                            color: "white",
+                            cursor: "pointer",
+                            width: "fit-content",
+                            padding: "0.8rem 1.2rem",
+                            backgroundColor: "#03AC13",
+                            borderRadius: "15px",
+                        }}
+                    >
+                        {"valider"}
+                    </button>
+                }
+                {selectedItem.isTested === REQUEST_STATUS.VALIDATED &&
+                    <button
+                        onClick={commitRequest}
+                        style={{
+                            border: "none",
+                            color: "white",
+                            cursor: "pointer",
+                            width: "fit-content",
+                            padding: "0.8rem 1.2rem",
+                            backgroundColor: "#007ab3",
+                            borderRadius: "15px",
+                        }}
+                    >
+                        {"committer"}
+                    </button>
+                }
+            </div>
         </div>
     )
 }

@@ -32,4 +32,16 @@ export const DEFAULT_DEST = [
         email: "externe.quentin.caillet@allianz.com",
         canBeRoemoved: false
     }
-]
+];
+
+export const REQUEST_STATUS = {
+    JUST_RECEIVED: "reçu",
+    VALIDATED: "validé",
+    COMMITTED: "commité",
+};
+
+export const STATUS_COLORS = {
+    [REQUEST_STATUS.JUST_RECEIVED]: "#FFE5B4",
+    [REQUEST_STATUS.VALIDATED]: "lightBlue",
+    [REQUEST_STATUS.COMMITTED]: "#3cb371",
+};
