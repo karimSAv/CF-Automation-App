@@ -9,6 +9,8 @@ const RequestDetails = ({ selectedItem, setSelectedItem }:
     }
 ) => {
 
+    console.log("Selected item:", selectedItem);
+
     const validateRequest = async () => {
         try {
             console.log("Validating request:", selectedItem);
@@ -26,14 +28,13 @@ const RequestDetails = ({ selectedItem, setSelectedItem }:
             console.log("Committing request:", selectedItem);
             await getSP().web.lists.getByTitle("CodesFirmes").items.getById(selectedItem.Id).update({
                 isTested: REQUEST_STATUS.COMMITTED,
+                committed: true,
             });
             window.location.reload();
         } catch (error) {
             console.error("Failed to commit request:", error);
         }
     };
-
-
 
     return (
         <div>

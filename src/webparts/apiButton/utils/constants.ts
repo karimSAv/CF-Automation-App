@@ -43,5 +43,5 @@ export const REQUEST_STATUS = {
 export const STATUS_COLORS = {
     [REQUEST_STATUS.JUST_RECEIVED]: "#FFE5B4",
     [REQUEST_STATUS.VALIDATED]: "lightBlue",
-    [REQUEST_STATUS.COMMITTED]: "#3cb371",
+    [REQUEST_STATUS.COMMITTED]: "#bcf5bc",
 };

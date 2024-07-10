@@ -2,6 +2,8 @@ import * as React from 'react';
 import toast from 'react-hot-toast';
 import { CFContext } from '../../../context/CFContext';
 import { createJiraTicket } from '../../../../../services/httpRequests/Jira';
+import { getSP } from '../../../utils/pnpjsConfig';
+import { REQUEST_STATUS } from '../../../utils/constants';
 
 
 const PreviewSection = ({ title, value }: { title: string, value: string }) => {
@@ -34,8 +36,23 @@ const PreviewTab = () => {
         setIsShowFinalScreen,
     } = React.useContext(CFContext);
 
+    const formatDate = (date: Date) => {
+        const day = date.getDate().toString().padStart(2, '0');
+        const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-based
+        const year = date.getFullYear();
+        return `${day}/${month}/${year}`;
+    };
+
     const handleOnNext = async () => {
         try {
+            const newItem = await getSP().web.lists.getByTitle("CodesFirmes").items.add({
+                Title: codeFirm,
+                creation_date: formatDate(new Date()),
+                isTested: REQUEST_STATUS.JUST_RECEIVED,
+                committed: false,
+            });
+            console.log("Added item:", newItem);
+            
             await createJiraTicket(
                 httpClient,
                 {

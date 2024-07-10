@@ -29,6 +29,8 @@ const BackView = () => {
         <RequestDetails selectedItem={selectedItem} setSelectedItem={setSelectedItem} />
     )
 
+    console.log("List items:", listItems);
+
     return (
         <div style={{
             gap: "1rem",
@@ -44,7 +46,7 @@ const BackView = () => {
                 <span>commité</span>
                 <span>actions</span>
             </div>
-            {listItems.splice(0, listItems.length - 1).map((item, index) => (
+            {listItems.map((item, index) => (
                 <div
                     key={item.Id}
                     style={{
